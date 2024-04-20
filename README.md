@@ -1,7 +1,7 @@
 # rpi-kernel
-Raspberry Pi 5 Kernel (Linux 6.6.28)
+Non-RT Raspberry Pi 5 Kernel (Linux 6.6.28)
 
-# How it was built:
+## How it was built:
 On an Ubuntu VM, install the build dependencies.
 
 ```
@@ -42,5 +42,5 @@ Next, build and install the kernel for 64-bit.
 sudo env PATH=$PATH make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- INSTALL_MOD_PATH=. modules_install
 ```
 
-# How to install on to the Pi 5:
+## How to install on to the Pi 5:
 TODO!
