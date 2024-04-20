@@ -1,0 +1,1 @@
+savedcmd_lib/crypto/modules.order := {   cat lib/crypto/mpi/modules.order;   echo lib/crypto/libchacha.o;   echo lib/crypto/libaes.o;   echo lib/crypto/libarc4.o;   echo lib/crypto/gf128mul.o;   echo lib/crypto/libchacha20poly1305.o;   echo lib/crypto/libcurve25519-generic.o;   echo lib/crypto/libcurve25519.o;   echo lib/crypto/libpoly1305.o; :; } > lib/crypto/modules.order

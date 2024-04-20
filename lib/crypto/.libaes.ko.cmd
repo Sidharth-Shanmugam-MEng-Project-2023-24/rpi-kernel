@@ -1,0 +1,1 @@
+savedcmd_lib/crypto/libaes.ko := aarch64-linux-gnu-ld -r -EL  -maarch64elf -z noexecstack --no-warn-rwx-segments --build-id=sha1  -T scripts/module.lds -o lib/crypto/libaes.ko lib/crypto/libaes.o lib/crypto/libaes.mod.o;  true

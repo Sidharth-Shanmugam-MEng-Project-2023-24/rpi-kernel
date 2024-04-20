@@ -1,0 +1,8 @@
+lib/crypto/libchacha.o
+lib/crypto/libaes.o
+lib/crypto/libarc4.o
+lib/crypto/gf128mul.o
+lib/crypto/libchacha20poly1305.o
+lib/crypto/libcurve25519-generic.o
+lib/crypto/libcurve25519.o
+lib/crypto/libpoly1305.o

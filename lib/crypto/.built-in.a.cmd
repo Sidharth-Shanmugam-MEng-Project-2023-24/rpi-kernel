@@ -1,0 +1,1 @@
+savedcmd_lib/crypto/built-in.a := rm -f lib/crypto/built-in.a;  printf "lib/crypto/%s " memneq.o utils.o chacha.o blake2s.o blake2s-generic.o des.o sha1.o sha256.o mpi/built-in.a | xargs aarch64-linux-gnu-ar cDPrST lib/crypto/built-in.a
