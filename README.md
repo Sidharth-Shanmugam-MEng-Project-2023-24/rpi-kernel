@@ -1,5 +1,7 @@
 # rpi-kernel
-Non-RT Raspberry Pi 5 Kernel (Linux 6.6.28)
+This repository contains the compiled, modified and built Raspberry Pi Linux kernels for use in this project. Both kernels have multi-core scheduler support enabled, however, one features a fully real-time (preemptable) kernel using the RT patch (6.6.25).
+
+The latest version of Raspberry Pi OS Lite at the time of writing (2024-03-15) uses the 6.6.20 Linux kernel (commit id: 6f16847710cc0502450788b9f12f0a14d3429668). I will be using this kernel along with the RT patch version 6.6.20-rt25 for the RT kernel.
 
 ## How it was built:
 On an Ubuntu VM, install the build dependencies.
@@ -8,10 +10,12 @@ On an Ubuntu VM, install the build dependencies.
 sudo apt install git bc bison flex libssl-dev make libc6-dev libncurses5-dev crossbuild-essential-arm64
 ```
 
-Get the Linux sources of the current version (defaults to the `rpi-6.6.y` branch, which is version 6.6.28). For reference, the commit hash: `9c68ba121ba173dd5711b4537bfcdf82ec731725`.
+Download Raspberry Pi Linux sources for 6.6.20, unzip the download, and finally, rename for readability.
 
 ```
-git clone --depth=1 https://github.com/raspberrypi/linux
+wget https://github.com/raspberrypi/linux/archive/6f16847710cc0502450788b9f12f0a14d3429668.zip
+unzip 6f16847710cc0502450788b9f12f0a14d3429668.zip
+mv linux-6f16847710cc0502450788b9f12f0a14d3429668/ linux/
 ```
 
 Apply the default configuration for the Pi 5 (64-bit).
@@ -22,7 +26,15 @@ KERNEL=kernel_2712
 make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- bcm2712_defconfig
 ```
 
-Build with configs for 64-bit.
+From inside the `linux` directory, download and apply the RT kernel patch (version 6.6.25 to match the exact kernel version, and only applying to the rt-kernel)
+
+```
+wget https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.6/older/patch-6.6.20-rt25.patch.gz
+gunzip patch-6.6.20-rt25.patch.gz
+cat patch-6.6.20-rt25.patch | patch -p1 
+```
+
+Build with configs for 64-bit. This step might produce a prompt asking for the preemption type if due to the patch, select the fully preemptable option and enable RCU priority boosting with a 500ms delay boosting (only for fully RT kernel).
 
 ```
 make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- Image modules dtbs
